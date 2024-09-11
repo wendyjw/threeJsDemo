@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import * as THREE from "three";
 
 import "./App.css";
@@ -32,11 +31,23 @@ function App() {
     camera.position.z = 5;
     // 设置相机朝向 原点（默认）
     camera.lookAt(0, 0, 0);
+    // 添加坐标轴
+    const axesHelper = new THREE.AxesHelper(5);
+    scene.add(axesHelper);
+    // 轨道控制器
+    const controls = new OrbitControls(camera, renderer.domElement);
+    // 开启阻尼
+    controls.enableDamping = true;
+    // 设置阻尼系数
+    controls.dampingFactor = 0.05;
+    // 开启自动旋转
+    // controls.autoRotate = true;
 
     function animate() {
       requestAnimationFrame(animate);
-      cube.rotation.x += 0.01;
-      cube.rotation.y += 0.01;
+      controls.update();
+      // cube.rotation.x += 0.01;
+      // cube.rotation.y += 0.01;
 
       // 渲染
       renderer.render(scene, camera);
