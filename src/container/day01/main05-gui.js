@@ -2,7 +2,7 @@
  * @Author: wenjwu
  * @Date: 2024-09-05 11:15:12
  * @LastEditors: wuwenjun
- * @LastEditTime: 2024-09-11 10:31:48
+ * @LastEditTime: 2024-09-12 09:58:24
  * @Description: TODO
  */
 import * as THREE from "three";
@@ -46,7 +46,7 @@ camera.position.z = 5;
 // 设置相机朝向 原点（默认）
 camera.lookAt(0, 0, 0);
 
-// 添加坐标轴
+// 添加坐标轴,x,y,z的默认尺寸都是5
 const axesHelper = new THREE.AxesHelper(5);
 scene.add(axesHelper);
 
