@@ -1,3 +1,10 @@
+/**
+ * @Author: wuwenjun
+ * @Date: 2024-09-30 16:55:16
+ * @LastEditors: wuwenjun
+ * @LastEditTime: 2024-09-30 17:28:09
+ * @Description: TODO
+ */
 import * as THREE from "three";
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -14,22 +21,18 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// 创建立方体
-const geometry = new THREE.BoxGeometry(1, 1, 1);
 // 创建材质
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-// 创建网格
-const cube = new THREE.Mesh(geometry, material);
-// 场景添加立方体
-scene.add(cube);
+const material = new THREE.LineBasicMaterial({ color: 0x0000ff });
+const points = [];
+points.push(new THREE.Vector3(-10, 0, 0));
+points.push(new THREE.Vector3(0, 10, 0));
+points.push(new THREE.Vector3(10, 0, 0));
 
-function animate(params) {
-  requestAnimationFrame(animate);
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
+const geometry = new THREE.BufferGeometry().setFromPoints(points);
 
-  // 渲染
-  renderer.render(scene, camera);
-}
+const line = new THREE.Line(geometry, material);
+// 场景添加线
+scene.add(line);
 
-animate();
+// 渲染
+renderer.render(scene, camera);
