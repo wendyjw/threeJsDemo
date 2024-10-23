@@ -1,15 +1,15 @@
 /**
  * @Author: wuwenjun
- * @Date: 2024-10-14 20:08:42
+ * @Date: 2024-10-22 19:50:02
  * @LastEditors: wuwenjun
- * @LastEditTime: 2024-10-14 20:09:14
+ * @LastEditTime: 2024-10-22 19:50:04
  * @Description: TODO
  */
 
 import * as THREE from "three";
 import { GUI } from "three/addons/libs/lil-gui.module.min.js";
-import { transpile } from "typescript";
-// require("../../../public/imgs/img2.jpeg")
+import { ao } from "three/webgpu";
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
   45, // 视角，越大，看到东西越多
@@ -29,6 +29,7 @@ let textureLoader = new THREE.TextureLoader();
 // 加载纹理贴图
 let texture = textureLoader.load("./imgs/img1.jpg"); // 路径默认为public 下
 let aoMap = textureLoader.load("./imgs/img2.jpeg");
+
 let material = new THREE.MeshBasicMaterial({
   color: 0xffffff,
   map: texture,
@@ -55,3 +56,11 @@ gui
   .min(0)
   .max(1)
   .step(0.01);
+gui
+  .add(texture, "colorSpace", {
+    sRGB: THREE.SRGBColorSpace,
+    linear: THREE.LinearColorSpace,
+  })
+  .onChange(() => {
+    texture.needsUpdate = true; // 纹理需要更新
+  });
